@@ -11,8 +11,8 @@ UUID_S0_1=750602c0-2c59-11e5-8441-3d75560f9f85
 #UUID_S0_2 Power Meter House -> Consumption
 UUID_S0_2=8a2fc2f0-2c52-11e5-8451-27b03dfe6eb8
 
-#UUID_comlete Consumption (Consumption + Photovoltaik)
-UUID_complete=83d96f20-2c59-11e5-b0bd-b1217f8f51d7
+#UUID_SUM Consumption (Consumption + Photovoltaik)
+UUID_SUM=83d96f20-2c59-11e5-b0bd-b1217f8f51d7
 
 LIMIT_PV=25 #Limiting PV at 1500W, be aware, this is for 1-Minute CRON Interval!!! -> showing previous value
 LIMIT_HOUSE=1000  #Limiting House PM at 60kW, be aware, this is for 1-Minute CRON Interval!!!-> showing previous value
@@ -88,7 +88,7 @@ COMPLETE_CONS=$((PM_HOUSE_CON + PM_PV_GAIN))
 ############## Uploading Data to Volkszaehler (localhost) #################
 wget -o /var/log/wget.log -O-  "http://localhost/middleware.php/data/$UUID_S0_1.json?operation=add&value=$PM_PV_NEG_GAIN&ts=`date +%s000`"
 wget -o /var/log/wget.log -O-  "http://localhost/middleware.php/data/$UUID_S0_2.json?operation=add&value=$PM_HOUSE_CON&ts=`date +%s000`"
-wget -o /var/log/wget.log -O-  "http://localhost/middleware.php/data/$UUID_complete.json?operation=add&value=$COMPLETE_CONS&ts=`date +%s000`"
+wget -o /var/log/wget.log -O-  "http://localhost/middleware.php/data/$UUID_SUM.json?operation=add&value=$COMPLETE_CONS&ts=`date +%s000`"
 
 ############## Saving Data #################
 cp /tmp/L1v.txt /tmp/L1v.txt.old
